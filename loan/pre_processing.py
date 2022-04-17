@@ -17,7 +17,7 @@ from dkube.sdk import *
 # In[ ]:
 
 
-inp_dir = "/opt/dkube/in"
+inp_dir = "/opt/dkube/in/"
 out_path = "/opt/dkube/out"
 
 
