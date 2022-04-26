@@ -62,8 +62,8 @@ if __name__ == "__main__":
     lr = RandomForestClassifier(random_state=100, class_weight = 'balanced')
     lr.fit(X_train,y_train)
     
-    y_pred_train = lr.predict(x_train)    # Predict on train data.
-    y_pred = lr.predict(x_test)   # Predict on test data.
+    y_pred_train = lr.predict(X_train)    # Predict on train data.
+    y_pred = lr.predict(X_test)   # Predict on test data.
     
     #######--- Calculating metrics ---############
     acc = metrics.accuracy_score(y_test, y_pred)
