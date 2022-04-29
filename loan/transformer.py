@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[ ]:
+
+
 import json
 import numpy as np
 import requests
@@ -11,7 +17,15 @@ import sys, json
 import os
 import pandas as pd
 
+
+# In[ ]:
+
+
 DEFAULT_MODEL_NAME = "model"
+
+
+# In[ ]:
+
 
 parser = argparse.ArgumentParser(parents=[kfserving.kfserver.parser])
 parser.add_argument(
@@ -23,15 +37,26 @@ parser.add_argument(
     "--predictor_host", help="The URL for the model predict function", required=True
 )
 
+
+# In[ ]:
+
+
 args, _ = parser.parse_known_args()
 
+
+# In[ ]:
+
+
 filename = "/tmp/temp.csv"
+
+
+# In[ ]:
+
 
 class Transformer(kfserving.KFModel):
     def __init__(self, name: str, predictor_host: str):
         super().__init__(name)
         self.predictor_host = predictor_host
-
     def preprocess(self, inputs: Dict) -> Dict:
         # inputs is a json file, inside that data, using the data value form a image
         # write into jpeg file
@@ -48,14 +73,24 @@ class Transformer(kfserving.KFModel):
         payload = {"instances": data.values.tolist(), "token": inputs["token"]}
         logging.info("token =======> %s", str(inputs["token"]))
         return payload
-
     def postprocess(self, predictions: List) -> List:
         logging.info("prep =======> %s", str(type(predictions)))
         preds = predictions["predictions"]
         res = f'Your insurance charges would be: ${round(preds[0],2)}'
         return {"result": res}
 
+
+# In[ ]:
+
+
 if __name__ == "__main__":
     transformer = Transformer(args.model_name, predictor_host=args.predictor_host)
     kfserver = kfserving.KFServer()
     kfserver.start(models=[transformer])
+
+
+# In[ ]:
+
+
+
+
