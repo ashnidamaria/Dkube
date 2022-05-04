@@ -58,7 +58,8 @@ if __name__ == "__main__":
     y = feature_df["credit_default"]
     
     X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.7, test_size=0.3, random_state=100)
-    
+    X_train.to_csv('/home/user3/workspace/LoanPA/loan/xtest.csv')
+    print('restshbdjfsk')
     lr = RandomForestClassifier(random_state=100, class_weight = 'balanced')
     lr.fit(X_train,y_train)
     
